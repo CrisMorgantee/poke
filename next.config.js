@@ -3,6 +3,10 @@ const withPWA = require('next-pwa')
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = withPWA({
+  compiler: {
+    // ssr and displayName are configured by default
+    styledComponents: true
+  },
   images: {
     domains: ['raw.githubusercontent.com']
   },

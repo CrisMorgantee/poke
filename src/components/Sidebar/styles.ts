@@ -3,6 +3,11 @@ import { rgba } from 'polished'
 import styled, { css, DefaultTheme } from 'styled-components'
 import media from 'styled-media-query'
 
+type ItemProps = {
+  isNull?: boolean
+  disabled?: boolean
+}
+
 export const Item = styled.a`
   ${({ theme }) => css`
     text-decoration: none;
@@ -14,9 +19,36 @@ export const Item = styled.a`
     &:hover {
       transform: translateX(1rem);
     }
+  `}
+`
+
+export const ShowMoreWrapper = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: ${theme.spacings.xxsmall};
+
+    ${Item} {
+      width: max-content;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  `}
+`
+
+export const Button = styled.button<ItemProps>`
+  ${({ theme, isNull, disabled }) => css`
+    pointer-events: ${disabled ? 'none' : 'auto'};
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
 
     & > svg {
-      color: ${theme.colors.primary};
+      color: ${isNull ? theme.colors.gray : theme.colors.primary};
     }
   `}
 `
@@ -157,7 +189,7 @@ export const Wrapper = styled.div<WrapperProps>`
   ${({ theme, isOpen }) => css`
     ${HeadingStyles.Wrapper} {
       ${({ theme }) => css`
-        margin-bottom: ${theme.spacings.medium};
+        margin-bottom: ${theme.spacings.xsmall};
       `}
     }
 
