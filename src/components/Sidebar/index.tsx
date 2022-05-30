@@ -19,6 +19,7 @@ export type ItemsProps = {
 
 export type SidebarProps = {
   items: {
+    count: number
     previous: string
     next: string
     results: ItemsProps[]
@@ -26,18 +27,26 @@ export type SidebarProps = {
 }
 
 const Sidebar = ({ items }: SidebarProps) => {
+  const initialPerPage =
+    items.previous?.split('limit=')[1] || items.next?.split('limit=')[1]
   const [isOpen, setIsOpen] = useState(false)
   const [values, setValues] = useState(items)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [perPage] = useState(initialPerPage)
+
+  const totalPages = Math.ceil(items.count / Number(perPage))
 
   const onPrevious = async () => {
     const { data } = await axios.get(values.previous)
 
+    setCurrentPage(currentPage - 1)
     setValues(data)
   }
 
   const onNext = async () => {
     const { data } = await axios.get(values.next)
 
+    setCurrentPage(currentPage + 1)
     setValues(data)
   }
 
@@ -62,6 +71,9 @@ const Sidebar = ({ items }: SidebarProps) => {
           >
             <KeyboardArrowLeft size={48} />
           </S.Button>
+          <S.Counter>
+            {currentPage} / {totalPages}
+          </S.Counter>
           <S.Button
             disabled={values.next === null}
             isNull={values.next === null}

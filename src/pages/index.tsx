@@ -6,7 +6,7 @@ export default function Index(props: HomeTemplateProps) {
 }
 
 export const getServerSideProps = async () => {
-  const baseUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=15'
+  const baseUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=20'
 
   const { data } = await axios.get(`${baseUrl}`)
   const sidebarItems = data

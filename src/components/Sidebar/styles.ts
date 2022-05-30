@@ -3,11 +3,6 @@ import { rgba } from 'polished'
 import styled, { css, DefaultTheme } from 'styled-components'
 import media from 'styled-media-query'
 
-type ItemProps = {
-  isNull?: boolean
-  disabled?: boolean
-}
-
 export const Item = styled.a`
   ${({ theme }) => css`
     text-decoration: none;
@@ -39,10 +34,23 @@ export const ShowMoreWrapper = styled.div`
   `}
 `
 
-export const Button = styled.button<ItemProps>`
+export const Counter = styled.span`
+  ${({ theme }) => css`
+    background-color: ${theme.colors.secondary};
+    padding: ${theme.spacings.xxsmall} ${theme.spacings.small};
+    border-radius: ${theme.border.radius};
+    font-weight: ${theme.font.bold};
+  `}
+`
+
+type ButtonProps = {
+  isNull?: boolean
+  disabled?: boolean
+}
+
+export const Button = styled.button<ButtonProps>`
   ${({ theme, isNull, disabled }) => css`
-    pointer-events: ${disabled ? 'none' : 'auto'};
-    cursor: pointer;
+    cursor: ${disabled ? 'not-allowed' : 'pointer'};
     background: none;
     border: none;
     outline: none;
