@@ -10,11 +10,7 @@ module.exports = withPWA({
   images: {
     domains: ['raw.githubusercontent.com']
   },
-  swcMinify: true,
-  experimental: {
-    // Enables the styled-components SWC transform
-    styledComponents: true
-  },
+  swcMinify: true,  
   pwa: {
     dest: 'public',
     disable: !isProd
